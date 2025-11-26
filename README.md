@@ -110,6 +110,6 @@ This repository shows my ability to:
 ---
 
 # 📬 Contact - **Adarsh Jayprakash Mishra**
-Follow me on Linkedin: https://www.linkedin.com/in/adarsh-jayprakash-mishra<br>
-Follow me on Instagram: https://www.instagram.com/ltx_adarsh18
+Follow me on Linkedin: [My LinkedIn Profile](https://www.linkedin.com/in/adarsh-jayprakash-mishra)<br>
+Follow me on Instagram: [My Instagram Profile](https://www.instagram.com/ltx_adarsh18)
 
