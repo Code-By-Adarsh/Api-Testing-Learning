@@ -32,6 +32,92 @@ It includes step-by-step learning, sample APIs, collections, test scripts, autom
 
 ---
 
+# 📘 Learning Path of Postman
+
+## 🚀 FINAL — API TESTING PRACTICE PLAN
+
+---
+
+## 📅 DAY 1–2: Foundations
+- Work with **ReqRes API**
+- Practice all HTTP methods:
+  - `GET`
+  - `POST`
+  - `PUT`
+  - `PATCH`
+  - `DELETE`
+- Understand:
+  - Status codes  
+  - Basic request/response flow  
+  - Simple variables
+
+---
+
+## 📅 DAY 3: Test Scripts & Assertions
+- Write test scripts using:
+  - `pm.test()`
+  - `pm.expect()`
+- Validate:
+  - Response time  
+  - Headers  
+  - JSON fields  
+  - Data types  
+- Advanced assertions:
+  - Regex  
+  - Key validations  
+  - 2xx range checks  
+- Store extracted values in:
+  - **Environment variables**
+  - **Collection variables**
+
+---
+
+## 📅 DAY 4: Automation Workflows
+- Chain multiple requests  
+- Extract → Save → Reuse variable  
+- Work with **Environment variables**
+- Write **Pre-request scripts** for:
+  - UUID generation  
+  - Random data  
+  - Timestamps  
+
+---
+
+## 📅 DAY 5: Advanced Validation
+- Negative testing  
+- Invalid payloads  
+- Unauthorized requests  
+- JSON Schema validation for:
+  - Required fields  
+  - Data types  
+  - Structural correctness  
+
+---
+
+## 📅 DAY 6: Realistic CRUD Workflow
+- Use **MockAPI.io**
+- Create your own API endpoints  
+- Build a full CRUD automation:
+  - Create  
+  - Read  
+  - Update  
+  - Delete  
+- Add test scripts + chaining logic  
+
+---
+
+## 📅 DAY 7: Full Postman Project
+- Build **10–15 API requests**
+- Add:
+  - Complete tests  
+  - Chaining   
+  - Dynamic data  
+- Write endpoint **documentation**
+- Add your learnings as **notes**
+- Export it as a **portfolio project**
+
+---
+
 # 📁 Repository Structure
 
 api-testing-learning-postman-restassured/<br>
