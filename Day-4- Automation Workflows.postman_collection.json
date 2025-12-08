@@ -1,0 +1,531 @@
+{
+	"info": {
+		"_postman_id": "e69d83cb-5227-474c-89e7-519bea664f68",
+		"name": "Day-4: Automation Workflows",
+		"description": "_📅 DAY 4: Automation Workflows_\n\n_1.Chain multiple requests_\n\n_\\-Extract → Save → Reuse variable_\n\n_2.Work with Environment variables(Advanced)_\n\n_3.Write Pre-request scripts for:_\n\n_**\\-UUID generation**_\n\n_\\-Random data_\n\n_\\-Timestamps_\n\n---\n\n_S-Simple_\n\n_M-Medium_\n\n_H-Hard_",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50452205",
+		"_collection_link": "https://adarsh-qa-7487290.postman.co/workspace/Adarsh-Mishra's-Workspace~d80947e0-cc43-4f54-8d50-bac086070ba8/collection/50452205-e69d83cb-5227-474c-89e7-519bea664f68?action=share&source=collection_link&creator=50452205"
+	},
+	"item": [
+		{
+			"name": "A: Get user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const id = pm.response.json().data[2].id;\r",
+							"pm.environment.set(\"userId\",id);\r",
+							"\r",
+							"console.log(\"Saved user by id: \",id);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}api/users",
+					"host": [
+						"{{baseUrl}}api"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "B: Get user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"User ID matches environment variable\",function(){\r",
+							"    pm.expect(pm.response.json().data.\r",
+							"    id).to.eql(parseInt(pm.environment.get(\"userId\"))\r",
+							"    );\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}api/users/{{userId}}",
+					"host": [
+						"{{baseUrl}}api"
+					],
+					"path": [
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "A1: Get user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const data = pm.response.json().data;\r",
+							"\r",
+							"pm.environment.set(\"userId\",data.id);\r",
+							"pm.environment.set(\"userEmail\",data.email);\r",
+							"pm.environment.set(\"userFirstName\",data.first_name);\r",
+							"pm.environment.set(\"userAvatar\",data.avatar);\r",
+							"\r",
+							"console.log(\"Saved:\",{\r",
+							"    \"userId\":data.id,\r",
+							"    \"userEmail\":data.email,\r",
+							"    \"userFirstName\":data.first_name,\r",
+							"    \"userAvatar\":data.avatar\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}api/users/2",
+					"host": [
+						"{{baseUrl}}api"
+					],
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "B1: Verify user A1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const res = pm.response.json().data;\r",
+							"\r",
+							"pm.test(\"User ID Matches\",function(){\r",
+							"    pm.expect(res.id).to.eql(parseInt(pm.environment.get(\"userId\")));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User Email is Matches\",function(){\r",
+							"    pm.expect(res.email).to.eql(pm.environment.get(\"userEmail\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"First name Matches\",function(){\r",
+							"    pm.expect(res.first_name).to.eql(pm.environment.get(\"userFirstName\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Avatar URL Matches\",function(){\r",
+							"    pm.expect(res.avatar).to.eql(pm.environment.get(\"userAvatar\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}api/users/{{userId}}",
+					"host": [
+						"{{baseUrl}}api"
+					],
+					"path": [
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Env. Variable",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"requestTimeStamp\",Date.now());"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Request time exist\",function(){\r",
+							"    pm.expect(pm.environment.get(\"requestTimeStamp\")).to.exist;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Request Time is number\",function(){\r",
+							"    pm.expect(parseInt(pm.environment.get(\"requestTimeStamp\"))).to.be.a(\"number\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}api/users/2",
+					"host": [
+						"{{baseUrl}}api"
+					],
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "C1: Random Data Generator",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"randomUUID\",crypto.randomUUID());\r",
+							"\r",
+							"pm.environment.set(\"randomEmail\",`user_${Date.now()}@qa.com`);\r",
+							"\r",
+							"pm.environment.set(\"randomNumber\",Math.floor(Math.random()*1000));\r",
+							"\r",
+							"pm.environment.set(\"isoTime\",new Date().toISOString());"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"UUID exists\",function(){\r",
+							"    pm.expect(pm.environment.get(\"randomUUID\")).to.exist;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Random Email contains @\",function(){\r",
+							"    pm.expect(pm.environment.get(\"randomEmail\")).to.include(\"@\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Random Number is valid\",function(){\r",
+							"    pm.expect(parseInt(pm.environment.get(\"randomNumber\"))).to.be.a(\"number\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ISO Time is valid\",function(){\r",
+							"    pm.expect(pm.environment.get(\"isoTime\")).to.include(\"T\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}api/users/2",
+					"host": [
+						"{{baseUrl}}api"
+					],
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "C2: Create Dynamic User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"userName\",`user_${Math.floor(Math.random()*999)}`);\r",
+							"\r",
+							"pm.environment.set(\"userJob\",`job_${Math.floor(Math.random()*99)}`);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const res = pm.response.json();\r",
+							"\r",
+							"pm.test(\"ID generated\",function(){\r",
+							"    pm.expect(res.id).to.exist;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User name matched\",function(){\r",
+							"    pm.expect(res.name).to.eql(pm.environment.get(\"userName\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User job matched\",function(){\r",
+							"    pm.expect(res.job).to.eql(pm.environment.get(\"userJob\"));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"{{userName}}\",\r\n    \"job\":\"{{userJob}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}api/users",
+					"host": [
+						"{{baseUrl}}api"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "C3: Performance & Log",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"perfStart\",Date.now());"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let start = parseInt(pm.environment.get(\"perfStart\"));\r",
+							"let end = Date.now();\r",
+							"let duration = end-start;\r",
+							"\r",
+							"pm.environment.set(\"perfDuration\",duration);\r",
+							"\r",
+							"pm.test(\"Perf Duration Saved\",function(){\r",
+							"    pm.expect(duration).to.be.a(\"number\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time under the 800 ms\",function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}api/users/2",
+					"host": [
+						"{{baseUrl}}api"
+					],
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "apiKey",
+			"value": ""
+		},
+		{
+			"key": "baseUrl",
+			"value": ""
+		}
+	]
+}
