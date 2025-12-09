@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "20bde4db-8ef1-423a-b510-9af6bc56bc18",
+		"name": "Day-5: Advanced Validation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50452205",
+		"_collection_link": "https://adarsh-qa-7487290.postman.co/workspace/Adarsh-Mishra's-Workspace~d80947e0-cc43-4f54-8d50-bac086070ba8/collection/50452205-20bde4db-8ef1-423a-b510-9af6bc56bc18?action=share&source=collection_link&creator=50452205"
+	},
+	"item": [
+		{
+			"name": "Negative test practice",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code should be 201\",function(){\r",
+							"    pm.expect(pm.response.code).to.eql(201);\r",
+							"})\r",
+							"\r",
+							"const data = pm.response.json();\r",
+							"pm.test(\"Response should echo the invalid payload\",function(){\r",
+							"    pm.expect(data.userId).to.eql(\"adarsh\");\r",
+							"    pm.expect(data.id).to.exist;\r",
+							"    pm.expect(data.title).to.eql(123);\r",
+							"    pm.expect(data.body).to.eql(true);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\":\"adarsh\",\r\n    \"title\":123,\r\n    \"body\":true\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Payloads",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\",function(){\r",
+							"    pm.expect(pm.response.code).to.eql(201);\r",
+							"});\r",
+							"\r",
+							"const body = pm.response.json();\r",
+							"pm.test(\"Server should echo invalid types\",function(){\r",
+							"    pm.expect(body.title).to.be.an(\"array\");\r",
+							"    pm.expect(body.body).to.be.an(\"object\");\r",
+							"    pm.expect(body.userId).to.eql(null);\r",
+							"    pm.expect(body.active).to.eql(\"yes\");\r",
+							"    pm.expect(body.rating).to.eql(\"five\");\r",
+							"    pm.expect(body.extraField).to.eql(999);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Extra field should appear in response\",function(){\r",
+							"    pm.expect(body.extraField).to.exist;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Provided Id should be number\",function(){\r",
+							"    pm.expect(body.id).to.be.a(\"number\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":[\"wrong\", \"adarsh\"],\r\n    \"body\":{\"msg\":\"nothing\"},\r\n    \"userId\":null,\r\n    \"active\":\"yes\",\r\n    \"rating\":\"five\",\r\n    \"extraField\":999\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthorized Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code should be 401 or 403\",function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,401,403]);\r",
+							"});\r",
+							"\r",
+							"const body = pm.response.json();\r",
+							"pm.test(\"Error message should be present\",function(){\r",
+							"    pm.expect(body.error ||  body.message).to.exist;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "{{apiKey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"adarsg@gmail.com\",\r\n    \"password\": \"land\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JSON Schema Validation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\":[\"userId\",\"id\",\"title\",\"body\"],\r",
+							"    \"properties\":{\r",
+							"        \"userId\":{\"type\":\"number\"},\r",
+							"        \"id\":{\"type\":\"number\"},\r",
+							"        \"title\":{\"type\":\"string\"},\r",
+							"        \"body\":{\"type\":\"string\"}\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"pm.test(\"Schema should be valid\",function(){\r",
+							"    pm.expect(pm.response).to.have.jsonSchema(schema);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": ""
+		},
+		{
+			"key": "apiKey",
+			"value": ""
+		}
+	]
+}
