@@ -1,0 +1,405 @@
+{
+	"info": {
+		"_postman_id": "1e79ec86-9c3c-478c-84f3-7b8712c2dfd7",
+		"name": "Day-6: Realistic CRUD Workflow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50452205",
+		"_collection_link": "https://adarsh-qa-7487290.postman.co/workspace/d80947e0-cc43-4f54-8d50-bac086070ba8/collection/50452205-1e79ec86-9c3c-478c-84f3-7b8712c2dfd7?action=share&source=collection_link&creator=50452205"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code must be 201\",function(){\r",
+							"    pm.expect(pm.response.code).to.eql(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time must be below than 5000ms\",function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response must be have complete fields\",function(){\r",
+							"    pm.expect(body).to.have.all.keys(\"createdAt\",\"name\",\"email\",\"id\",\"avatar\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Id must be number\",function(){\r",
+							"    pm.expect(parseInt(body.id)).to.be.a(\"number\");\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"userId\",body.id);\r",
+							"\r",
+							"pm.environment.set(\"userName\",body.name);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Adarsh Mishra\",\r\n    \"email\":\"adarshmishra@test.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://6939b4c7c8d59937aa08ce60.mockapi.io/users",
+					"protocol": "https",
+					"host": [
+						"6939b4c7c8d59937aa08ce60",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code must be 200\",function(){\r",
+							"    pm.expect(pm.response.code).to.eql\r",
+							"    (200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Read user successful\",function(){\r",
+							"    pm.expect(pm.response.json().id).to.eql(pm.environment.get(\"userId\"));\r",
+							"    pm.expect(pm.response.json().name).to.eql(pm.environment.get(\"userName\"));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://6939b4c7c8d59937aa08ce60.mockapi.io/users/{{userId}}",
+					"protocol": "https",
+					"host": [
+						"6939b4c7c8d59937aa08ce60",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Updated user successful\",function(){\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"    pm.expect(pm.response.json().name).to.include(\"updated\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"updated adarsh\",\r\n    \"email\":\"updatedemail@.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://6939b4c7c8d59937aa08ce60.mockapi.io/users/{{userId}}",
+					"protocol": "https",
+					"host": [
+						"6939b4c7c8d59937aa08ce60",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete user successful\",function(){\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://6939b4c7c8d59937aa08ce60.mockapi.io/users/{{userId}}",
+					"protocol": "https",
+					"host": [
+						"6939b4c7c8d59937aa08ce60",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Advance Create User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const body = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code must be 201\",function(){\r",
+							"    pm.expect(pm.response.code).to.eql(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time must be below than 5000ms\",function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response must be have complete fields\",function(){\r",
+							"    pm.expect(body).to.have.all.keys(\"createdAt\",\"name\",\"email\",\"id\",\"avatar\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Id must be number\",function(){\r",
+							"    pm.expect(parseInt(body.id)).to.be.a(\"number\");\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"userObject\",JSON.stringify(body));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"{{faker.name.firstName}} {{faker.name.lastName}}\",\r\n    \"email\":\"{{faker.inernet.email}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://6939b4c7c8d59937aa08ce60.mockapi.io/users",
+					"protocol": "https",
+					"host": [
+						"6939b4c7c8d59937aa08ce60",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Advance Get User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const expected = JSON.parse(pm.environment.get(\"userObject\"));\r",
+							"const actual = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code must be 200\",function(){\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User data matches created user\",function(){\r",
+							"    pm.expect(actual.id).to.eql(expected.id);\r",
+							"    pm.expect(actual.name).to.eql(expected.name);\r",
+							"    pm.expect(actual.email).to.eql(expected.email);\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://6939b4c7c8d59937aa08ce60.mockapi.io/users/1",
+					"protocol": "https",
+					"host": [
+						"6939b4c7c8d59937aa08ce60",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Advance Update User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const actual = JSON.parse(pm.environment.get(\"userObject\"));\r",
+							"const updated = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code must be 200\",function(){\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Update user successful\",function(){\r",
+							"    pm.expect(updated.name).to.not.eql(actual.name);\r",
+							"    pm.expect(updated.email).to.not.eql(actual.email);\r",
+							"})\r",
+							"\r",
+							"pm.environment.set(\"userObject\",JSON.stringify(updated));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"updated {{faker.name.lastName}}\",\r\n    \"email\":\"updated {{faker.internet.email}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://6939b4c7c8d59937aa08ce60.mockapi.io/users/1",
+					"protocol": "https",
+					"host": [
+						"6939b4c7c8d59937aa08ce60",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Advance Delete User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete successful\",function(){",
+							"    pm.expect(pm.response.code).to.eql(200);",
+							"});",
+							"",
+							"pm.test(\"User no longer exists\",function(){",
+							"    const deletedId = JSON.parse(pm.environment.get(\"userObject\")).id;",
+							"    pm.sendRequest({",
+							"        url:'https://6939b4c7c8d59937aa08ce60.mockapi.io/users/${{deletedId}}',",
+							"        method:\"GET\"",
+							"    },function(){",
+							"        pm.expect(pm.response.code).to.eq",
+							"        (404);",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://6939b4c7c8d59937aa08ce60.mockapi.io/users/1",
+					"protocol": "https",
+					"host": [
+						"6939b4c7c8d59937aa08ce60",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
