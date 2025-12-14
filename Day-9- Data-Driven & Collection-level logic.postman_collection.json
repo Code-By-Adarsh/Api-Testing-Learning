@@ -1,0 +1,78 @@
+{
+	"info": {
+		"_postman_id": "76a8ef36-c707-437e-9c0d-6f787037ab92",
+		"name": "Day-9: Data-Driven & Collection-level logic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50452205",
+		"_collection_link": "https://adarsh-qa-7487290.postman.co/workspace/Adarsh-Mishra's-Workspace~d80947e0-cc43-4f54-8d50-bac086070ba8/collection/50452205-76a8ef36-c707-437e-9c0d-6f787037ab92?action=share&source=collection_link&creator=50452205"
+	},
+	"item": [
+		{
+			"name": "Create User with",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const expectedStatus = parseInt(pm.iterationData.get(\"expStatus\"));\r",
+							"const actualStatus = pm.response.code;\r",
+							"\r",
+							"//check api returned what we expected\r",
+							"pm.test(\"Status code matches the expected response code\",()=>{\r",
+							"    pm.expect(actualStatus).to.eql(expectedStatus);\r",
+							"});\r",
+							"\r",
+							"//positive case validation\r",
+							"if(actualStatus == 201){\r",
+							"    pm.test(\"User created successfully\",()=>{\r",
+							"        pm.expect(pm.response.json().id).to.exist;\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"//negative case validation\r",
+							"if(actualStatus == 400){\r",
+							"    pm.test(\"Error message is returned\",()=>{\r",
+							"        pm.expect(pm.response.json().error).to.exist;\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"//performance test\r",
+							"pm.test(\"Response time is under the 1s\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"{{Name}}\",\r\n    \"email\":\"{{Email}}\",\r\n    \"job\":\"{{Job}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://6939b4c7c8d59937aa08ce60.mockapi.io/users",
+					"protocol": "https",
+					"host": [
+						"6939b4c7c8d59937aa08ce60",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
