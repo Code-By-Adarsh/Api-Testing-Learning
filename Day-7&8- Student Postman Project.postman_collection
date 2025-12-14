@@ -1,0 +1,564 @@
+{
+	"info": {
+		"_postman_id": "a1cfecf5-24a0-48b9-af6a-9822a3a30392",
+		"name": "Day-7: Student Postman Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50452205",
+		"_collection_link": "https://adarsh-qa-7487290.postman.co/workspace/Adarsh-Mishra's-Workspace~d80947e0-cc43-4f54-8d50-bac086070ba8/collection/50452205-a1cfecf5-24a0-48b9-af6a-9822a3a30392?action=share&source=collection_link&creator=50452205"
+	},
+	"item": [
+		{
+			"name": "Create User Adarsh",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const res = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 201\",function(){\r",
+							"    pm.expect(pm.response.code).to.eql(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is below than 800ms\",function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content is json type\",function(){\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Required fields exists\",()=>{\r",
+							"    const req = [\"createdAt\",\"name\",\"id\",\"email\",\"avatar\"];\r",
+							"\r",
+							"    req.forEach(field=>{\r",
+							"        pm.expect(res,\"Missing field: ${field}\").to.have.property(field);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Name matched\",function(){\r",
+							"    pm.expect(res.name).to.eql(\"Adarsh\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Email matched\",function(){\r",
+							"    pm.expect(res.email).to.eql(\"Adarsh@test.com\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Id is not empty\",function(){\r",
+							"    pm.expect(res.id.length).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"userObject1\",JSON.stringify(res));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Adarsh\",\r\n    \"email\":\"Adarsh@test.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}",
+					"host": [
+						"{{baseUrl}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User Rohit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const res = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 201\",function(){\r",
+							"    pm.expect(pm.response.code).to.eql(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is below than 800ms\",function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content is json type\",function(){\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Required fields exists\",()=>{\r",
+							"    const req = [\"createdAt\",\"name\",\"id\",\"email\",\"avatar\"]\r",
+							"\r",
+							"    req.forEach(field=>{\r",
+							"        pm.expect(res,\"Missing field: ${field}\").to.have.property(field);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Name matched\",function(){\r",
+							"    pm.expect(res.name).to.eql(\"Rohit\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Email matched\",function(){\r",
+							"    pm.expect(res.email).to.eql(\"rohit@test.com\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Id is not empty\",function(){\r",
+							"    pm.expect(res.id.length).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"userObject2\",JSON.stringify(res));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Rohit\",\r\n    \"email\":\"rohit@test.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}",
+					"host": [
+						"{{baseUrl}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User Pritam",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const res = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 201\",function(){\r",
+							"    pm.expect(pm.response.code).to.eql(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is below than 800ms\",function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content is json type\",function(){\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Required fields exists\",()=>{\r",
+							"    const req = [\"createdAt\",\"name\",\"id\",\"email\",\"avatar\"]\r",
+							"\r",
+							"    req.forEach(field=>{\r",
+							"        pm.expect(res,\"Missing field: ${field}\").to.have.property(field);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Name matched\",function(){\r",
+							"    pm.expect(res.name).to.eql(\"Pritam\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Email matched\",function(){\r",
+							"    pm.expect(res.email).to.eql(\"pritam@test.com\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Id is not empty\",function(){\r",
+							"    pm.expect(res.id.length).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"userObject3\",JSON.stringify(res));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Pritam\",\r\n    \"email\":\"pritam@test.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}",
+					"host": [
+						"{{baseUrl}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const res = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\",function(){\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time less than 800ms\",function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content type is application/json\",function(){\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Required fields exists\",()=>{\r",
+							"    const req = [\"createdAt\",\"id\",\"name\",\"email\",\"avatar\"];\r",
+							"\r",
+							"    req.forEach(field=>{\r",
+							"        res.forEach(user=>{\r",
+							"            pm.expect(user,\"Missing field:${field}\").to.have.property(field);\r",
+							"        })\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Id is not empty\",function(){\r",
+							"    res.forEach(user=>{\r",
+							"        pm.expect(user.id.length).to.be.above(0);\r",
+							"        });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Name is String\",function(){\r",
+							"    res.forEach(user=>{\r",
+							"        pm.expect(user.name).to.be.a(\"String\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Email contains @\",function(){\r",
+							"    res.forEach(user=>{\r",
+							"        pm.expect(user.email).to.include(\"@\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}",
+					"host": [
+						"{{baseUrl}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Adarsh",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const actual = JSON.parse(pm.environment.get(\"userObject1\"));\r",
+							"const res = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\",function(){\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time less than 800ms\",function(){\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content type is application/json\",function(){\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Required fields exists\",()=>{\r",
+							"    const req = [\"createdAt\",\"id\",\"name\",\"email\",\"avatar\"];\r",
+							"\r",
+							"    req.forEach(field=>{\r",
+							"        pm.expect(res,\"Missing field:${field}\").to.have.property(field);\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Id exist\",function(){\r",
+							"    pm.expect(res.id).to.be.a(\"String\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Id matched\",()=>{\r",
+							"    pm.expect(res.id).to.eql(actual.id);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Name is String\",function(){\r",
+							"    pm.expect(res.name).to.be.a(\"String\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Name matched\",()=>{\r",
+							"    pm.expect(res.name).to.eql(actual.name);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Email contains @\",function(){\r",
+							"    pm.expect(res.email).to.include(\"@\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Email matched\",()=>{\r",
+							"    pm.expect(res.email).to.eql(actual.email);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Update User Pritam",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const actual = JSON.parse(pm.environment.get(\"userObject3\"));\r",
+							"const res = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\",function(){\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Name is update\",function(){\r",
+							"    pm.expect(res.name).to.not.eql(actual.name);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Email is update\",function(){\r",
+							"    pm.expect(res.email).to.not.eql(actual.email);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Id is 3\",function(){\r",
+							"    pm.expect(res.id).to.eql(actual.id);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"userObject3\",JSON.stringify(res));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Ayush\",\r\n    \"email\":\"ayush@test.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/3",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch Update User Rohit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const actual = JSON.parse(pm.environment.get(\"userObject2\"));\r",
+							"const res = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status code is 200\",function(){\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Email is update\",function(){\r",
+							"    pm.expect(res.email).to.not.eql(actual.email);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"rohankar@test.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/2",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User Ayush",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is between 200 & 204\",function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,204]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User deleted\",function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,204]);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/3",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": ""
+		}
+	]
+}
