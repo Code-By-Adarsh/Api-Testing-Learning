@@ -194,18 +194,7 @@ Earned by successfully completing Postman’s official skill checks, validating:
 🗓 Issued: December 2025  
 🏢 Issuer: Postman
 
----
-
-# 🎯 Why This Repo?
-
-This repository shows my ability to:
-
-- Learn API Testing step-by-step  
-- Use Postman professionally  
-- Automate API tests using Java  
-- Work with public APIs  
-- Build a real, structured API framework  
-
+ 
 ---
 
 # 📬 Contact - **Adarsh Jayprakash Mishra**
