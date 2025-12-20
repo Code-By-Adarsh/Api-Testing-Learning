@@ -144,13 +144,11 @@ api-testing-learning-postman-restassured/<br>
 
 # 🌐 Public APIs Used for Practice
 
-Free APIs Source such as:
+Free APIs Used in Repo:
 
 - https://reqres.in  
-- https://jsonplaceholder.typicode.com  
-- https://restful-booker.herokuapp.com  
-- https://fakerestapi.azurewebsites.net  
-- https://dummyjson.com  
+- https://jsonplaceholder.typicode.co
+- https://mockapi.io
 
 (I will add more as I explore.)
 
@@ -180,6 +178,21 @@ Free APIs Source such as:
 | Automation | Rest Assured, Java, TestNG, Maven |
 | Version Control | Git + GitHub |
 | Documentation | Markdown, Postman Collections |
+
+---
+
+## 📜 Certification
+
+**Postman API Fundamentals – Student Expert**
+
+Earned by successfully completing Postman’s official skill checks, validating:
+- Proper API request structuring
+- Use of variables and environments
+- Automated tests for positive & negative scenarios
+- Industry-standard API testing practices
+
+🗓 Issued: December 2025  
+🏢 Issuer: Postman
 
 ---
 
