@@ -39,6 +39,7 @@ Free APIs Used in Repo:
 - https://reqres.in  
 - https://jsonplaceholder.typicode.co
 - https://mockapi.io
+- https://dummyjson.com
 
 (I will add more as I explore.)
 
